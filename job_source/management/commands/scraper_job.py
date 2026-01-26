@@ -86,7 +86,8 @@ class Command(BaseCommand):
             driver.get("https://cv.ee/en/search?limit=20&offset=0&keywords%5B0%5D=junior&towns%5B0%5D=312")
             
             # Wait for the page to load and find job links
-            time.sleep(10)
+            driver.set_page_load_timeout(30)
+            driver.implicitly_wait(10)
 
             job_links = []
 
@@ -119,7 +120,12 @@ class Command(BaseCommand):
 
         # Now visit each link one by one and scrape details
         for link in job_links:
-            self.scrape_single_job(driver, link, source=source)
+            try:
+                self.scrape_single_job(driver, link, source=source)
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f"Error scraping job at {link}: {e}"))
+                #print(f"Error scraping job at {link}: {e}")
+                continue
             time.sleep(5)  # Be polite and avoid overwhelming the server
 
         driver.quit()
@@ -136,7 +142,7 @@ class Command(BaseCommand):
         
 
         try:
-            WebDriverWait(driver, 10).until(
+            WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.TAG_NAME, "h1")) 
             )
         except Exception as e:
