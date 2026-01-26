@@ -30,7 +30,7 @@ jobs:
       - name: 🚀 Run Scraper
         env:
           # If you used os.environ for tokens, add them here in secrets
-          # TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }} 
+          # TELEGRAM_TOKEN: 
           # For now, if they are hardcoded in utils.py, this line isn't needed
           pass: true 
         run: |
