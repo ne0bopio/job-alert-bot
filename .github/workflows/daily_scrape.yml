@@ -34,13 +34,13 @@ jobs:
           # For now, if they are hardcoded in utils.py, this line isn't needed
           pass: true 
         run: |
-          python manage.py scrape_jobs
+          python manage.py scraper_job
 
       - name: 💾 Commit and Push Database
         # This is the "Git Scraping" magic. It saves the db.sqlite3 changes.
         run: |
-          git config --global user.name "JobBot"
-          git config --global user.email "bot@example.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add db.sqlite3
-          git commit -m "Update database with new jobs" || exit 0
+          git commit -m "🤖 Automated Database Update: New Jobs Found" || exit 0
           git push
