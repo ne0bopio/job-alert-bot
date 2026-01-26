@@ -3,7 +3,7 @@ name: Daily Job Scraper
 on:
   schedule:
     # Runs at 16:11 UTC which is 11:20 AM EST
-    - cron: '55 17 * * *'
+    - cron: '12 19 * * *'
   workflow_dispatch: # Allows you to click a button to run it manually for testing
 
 permissions:
